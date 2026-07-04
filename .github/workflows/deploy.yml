@@ -39,20 +39,20 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/soc-mlops-platform-rf:latest
-          
+
       - name: Deploy to EC2
-            uses: appleboy/ssh-action@v1.0.3
-            with:
-              host: ${{ secrets.EC2_HOST }}
-              username: ${{ secrets.EC2_USER }}
-              key: ${{ secrets.EC2_SSH_KEY }}
-              script: |
-                docker pull ${{ secrets.DOCKER_USERNAME }}/soc-mlops-platform-rf:latest
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/soc-mlops-platform-rf:latest
 
-                docker stop soc-mlops-platform || true
-                docker rm soc-mlops-platform || true
+            docker stop soc-mlops-platform || true
+            docker rm soc-mlops-platform || true
 
-                docker run -d \
-                  --name soc-mlops-platform \
-                  -p 8000:8000 \
-                  ${{ secrets.DOCKER_USERNAME }}/soc-mlops-platform-rf:latest       
+            docker run -d \
+              --name soc-mlops-platform \
+              -p 8000:8000 \
+              ${{ secrets.DOCKER_USERNAME }}/soc-mlops-platform-rf:latest
