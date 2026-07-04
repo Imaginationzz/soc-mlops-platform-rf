@@ -1,1 +1,6 @@
-soc-mlops-platform-key.pem
+__pycache__/
+.pytest_cache/
+mlruns/
+mlflow.db
+*.pem
+.vscode/
