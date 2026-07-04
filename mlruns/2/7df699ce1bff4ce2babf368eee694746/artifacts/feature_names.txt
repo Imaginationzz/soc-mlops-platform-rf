@@ -1,0 +1,13 @@
+total_logins
+failed_logins
+successful_logins
+unique_users
+admin_targets
+unknown_devices
+vpn_usage
+mfa_usage
+unique_countries
+failure_rate
+success_rate
+unknown_device_rate
+mfa_rate
