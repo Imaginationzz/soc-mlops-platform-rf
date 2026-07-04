@@ -49,10 +49,14 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/soc-mlops-platform-rf:latest
 
+            docker ps -q --filter "publish=8000" | xargs -r docker stop
+            docker ps -aq --filter "publish=8000" | xargs -r docker rm
+
             docker stop soc-mlops-platform || true
             docker rm soc-mlops-platform || true
 
             docker run -d \
+              --restart unless-stopped \
               --name soc-mlops-platform \
               -p 8000:8000 \
               ${{ secrets.DOCKER_USERNAME }}/soc-mlops-platform-rf:latest
